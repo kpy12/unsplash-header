@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Auto-Rotating Unsplash Background</title>
+  <title>Auto-Rotating Unsplash Background (API-safe)</title>
   <style>
     html, body {
       margin: 0;
@@ -50,8 +50,8 @@
     // Initial load
     updateBackground();
 
-    // Update every 3 seconds
-    setInterval(updateBackground, 15000);
+    // Update every 75 seconds (API-safe)
+    setInterval(updateBackground, 75000);
   </script>
 </body>
 </html>
