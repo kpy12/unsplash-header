@@ -28,24 +28,25 @@
     const accessKey = 'Hwht6jIKbhK7vzeQzGf7DwTWvt7oGjbRUDnowxT8-r8';
     const heroDiv = document.getElementById('hero');
 
-    // List of themes (can be expanded)
+    // List of themes
     const themes = ['nature', 'city', 'technology', 'ocean', 'mountains', 'architecture'];
 
-    // Function to choose a random theme
+    // Get a random theme
     function getRandomTheme() {
       const randomIndex = Math.floor(Math.random() * themes.length);
       return themes[randomIndex];
     }
 
-    // Function to update the background image
+    // Update the background image
     function updateBackground() {
-      const theme = getRandomTheme(); // Select random theme
+      const theme = getRandomTheme();
       const apiUrl = `https://api.unsplash.com/photos/random?orientation=landscape&query=${theme}&client_id=${accessKey}`;
       
       fetch(apiUrl)
         .then(res => res.json())
         .then(data => {
-          heroDiv.style.backgroundImage = `url(${data[0].urls.regular}&w=1600)`;
+          const imageUrl = data.urls.regular + '&w=1600';
+          heroDiv.style.backgroundImage = `url(${imageUrl})`;
         })
         .catch(err => {
           console.error("Failed to load Unsplash image:", err);
@@ -53,7 +54,7 @@
     }
 
     updateBackground();
-    setInterval(updateBackground, 75000); // Update every 75 seconds
+    setInterval(updateBackground, 75000);
   </script>
 </body>
 </html>
