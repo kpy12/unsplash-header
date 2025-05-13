@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Auto-Rotating Unsplash Background</title>
+  <title>Auto-Rotating Unsplash Background (Multiple Themes)</title>
   <style>
     html, body {
       margin: 0;
@@ -28,8 +28,20 @@
     const accessKey = 'Hwht6jIKbhK7vzeQzGf7DwTWvt7oGjbRUDnowxT8-r8';
     const heroDiv = document.getElementById('hero');
 
+    // List of themes (can be expanded)
+    const themes = ['nature', 'city', 'technology', 'ocean', 'mountains', 'architecture'];
+
+    // Function to choose a random theme
+    function getRandomTheme() {
+      const randomIndex = Math.floor(Math.random() * themes.length);
+      return themes[randomIndex];
+    }
+
+    // Function to update the background image
     function updateBackground() {
-      const apiUrl = `https://api.unsplash.com/photos/random?orientation=landscape&query=nature&client_id=${accessKey}`;
+      const theme = getRandomTheme(); // Select random theme
+      const apiUrl = `https://api.unsplash.com/photos/random?orientation=landscape&query=${theme}&client_id=${accessKey}`;
+      
       fetch(apiUrl)
         .then(res => res.json())
         .then(data => {
