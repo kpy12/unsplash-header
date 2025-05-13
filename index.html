@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dynamic Unsplash Header</title>
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .header {
+      height: 300px;
+      width: 100%;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 2em;
+      font-family: sans-serif;
+      text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
+    }
+  </style>
+</head>
+<body>
+  <div id="header" class="header">Welcome</div>
+
+  <script>
+    const accessKey = 'Hwht6jIKbhK7vzeQzGf7DwTWvt7oGjbRUDnowxT8-r8';
+    const apiUrl = `https://api.unsplash.com/photos/random?orientation=landscape&query=nature&client_id=${accessKey}`;
+
+    fetch(apiUrl)
+      .then(res => res.json())
+      .then(data => {
+        const imageUrl = data.urls.full + '&w=1200'; // Resize for better performance
+        document.getElementById('header').style.backgroundImage = `url(${imageUrl})`;
+      })
+      .catch(err => {
+        console.error("Error loading Unsplash image", err);
+      });
+  </script>
+</body>
+</html>
