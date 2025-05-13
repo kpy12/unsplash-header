@@ -2,45 +2,56 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Dynamic Unsplash Header</title>
+  <title>Auto-Rotating Unsplash Background</title>
   <style>
     html, body {
       margin: 0;
+      padding: 0;
       height: 100%;
       overflow: hidden;
     }
 
-    .header {
-      height: 300px;
+    .hero {
       width: 100%;
+      height: 100vh;
       background-size: cover;
       background-position: center;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
-      font-size: 2em;
+      font-size: 3em;
       font-family: sans-serif;
-      text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+      transition: background-image 1s ease-in-out;
     }
   </style>
 </head>
 <body>
-  <div id="header" class="header">Welcome</div>
+  <div id="hero" class="hero">Enjoy the View</div>
 
   <script>
     const accessKey = 'Hwht6jIKbhK7vzeQzGf7DwTWvt7oGjbRUDnowxT8-r8';
-    const apiUrl = `https://api.unsplash.com/photos/random?orientation=landscape&query=nature&client_id=${accessKey}`;
+    const heroDiv = document.getElementById('hero');
 
-    fetch(apiUrl)
-      .then(res => res.json())
-      .then(data => {
-        const imageUrl = data.urls.full + '&w=1200'; // Resize for better performance
-        document.getElementById('header').style.backgroundImage = `url(${imageUrl})`;
-      })
-      .catch(err => {
-        console.error("Error loading Unsplash image", err);
-      });
+    function updateBackground() {
+      const apiUrl = `https://api.unsplash.com/photos/random?orientation=landscape&query=nature&client_id=${accessKey}`;
+      fetch(apiUrl)
+        .then(res => res.json())
+        .then(data => {
+          const imageUrl = data.urls.regular + '&w=1600';
+          heroDiv.style.backgroundImage = `url(${imageUrl})`;
+        })
+        .catch(err => {
+          console.error("Failed to load Unsplash image:", err);
+        });
+    }
+
+    // Initial load
+    updateBackground();
+
+    // Update every 3 seconds
+    setInterval(updateBackground, 15000);
   </script>
 </body>
 </html>
