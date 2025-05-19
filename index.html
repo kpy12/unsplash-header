@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Auto-Rotating Unsplash Background (Enhanced)</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Auto-Rotating Unsplash Background with Overlay Image</title>
   <style>
     html, body {
       margin: 0;
@@ -29,33 +29,48 @@
     .fade-in {
       opacity: 1;
     }
+
+    .overlay-image {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      max-width: 220px;
+      height: auto;
+      pointer-events: none; /* allow clicks to pass through */
+    }
+
+    @media (max-width: 600px) {
+      .overlay-image {
+        max-width: 160px;
+        top: 12px;
+      }
+    }
   </style>
 </head>
 <body>
   <div id="hero" class="hero" aria-label="Background image from Unsplash"></div>
+  <img src="https://res.cloudinary.com/djnmullfc/image/upload/v1747639990/name_shin_yuan_vtdefo.jpg" 
+       alt="Shin Yuan Logo" class="overlay-image" />
 
   <script>
     const accessKey = 'Hwht6jIKbhK7vzeQzGf7DwTWvt7oGjbRUDnowxT8-r8';
     const heroDiv = document.getElementById('hero');
 
-    // Themes to cycle through
     const themes = ['nature', 'city', 'technology', 'ocean', 'mountains', 'architecture', 'abstract', 'work'];
 
-    // Get random theme
     function getRandomTheme() {
-      const index = Math.floor(Math.random() * themes.length);
-      return themes[index];
+      return themes[Math.floor(Math.random() * themes.length)];
     }
 
-    // Preload image and update background on load
     function preloadImage(url, callback) {
       const img = new Image();
       img.onload = () => callback(url);
-      img.onerror = () => callback('fallback.jpg'); // fallback image if loading fails
+      img.onerror = () => callback('fallback.jpg');
       img.src = url;
     }
 
-    // Update background image
     function updateBackground() {
       const theme = getRandomTheme();
       const apiUrl = `https://api.unsplash.com/photos/random?orientation=landscape&query=${theme}&client_id=${accessKey}`;
@@ -79,10 +94,7 @@
         });
     }
 
-    // Initial load
     updateBackground();
-
-    // Rotate every 75 seconds
     setInterval(updateBackground, 75000);
   </script>
 </body>
