@@ -13,7 +13,7 @@
     }
 
     body {
-      position: relative; /* Allows absolute positioning of the overlay image */
+      position: relative;
     }
 
     .hero {
@@ -21,7 +21,7 @@
       height: 100vh;
       background-size: cover;
       background-position: center;
-      background-color: #222; /* fallback while loading */
+      background-color: #222;
       transition: background-image 1s ease-in-out, opacity 1s ease-in-out;
       opacity: 1;
     }
@@ -36,19 +36,26 @@
 
     .overlay-image {
       position: absolute;
-      top: 20px;
+      top: 30px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 10;
-      max-width: 220px;
+      max-width: 700px; /* Larger image */
       height: auto;
       pointer-events: none;
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 768px) {
       .overlay-image {
-        max-width: 160px;
-        top: 12px;
+        max-width: 400px;
+        top: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .overlay-image {
+        max-width: 300px;
+        top: 16px;
       }
     }
   </style>
@@ -62,7 +69,7 @@
     const accessKey = 'Hwht6jIKbhK7vzeQzGf7DwTWvt7oGjbRUDnowxT8-r8';
     const heroDiv = document.getElementById('hero');
 
-    const themes = ['nature', 'city', 'technology', 'architecture', 'organization'];
+    const themes = ['nature', 'city', 'technology', 'architecture', 'abstract'];
 
     function getRandomTheme() {
       return themes[Math.floor(Math.random() * themes.length)];
